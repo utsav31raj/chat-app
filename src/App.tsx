@@ -3,7 +3,7 @@ import { io, Socket } from 'socket.io-client';
 import { UsernameInput } from './components/UsernameInput';
 import { ChatRoom } from './components/ChatRoom';
 
-const SOCKET_URL = https://chat-app-st53.onrender.com/;
+const SOCKET_URL = "https://chat-app-st53.onrender.com";
 
 function App() {
   const [socket, setSocket] = useState<Socket | null>(null);
