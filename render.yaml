@@ -1,0 +1,35 @@
+services:
+  # Frontend Service (optional - Vercel is recommended instead)
+  - type: web
+    name: fake-news-frontend
+    runtime: static
+    buildCommand: npm run build
+    staticPublishPath: ./dist
+    envVars:
+      - key: VITE_SUPABASE_URL
+        scope: build
+      - key: VITE_SUPABASE_ANON_KEY
+        scope: build
+      - key: VITE_API_URL
+        scope: build
+
+  # Backend API Service
+  - type: web
+    name: fake-news-backend
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: VITE_SUPABASE_URL
+      - key: VITE_SUPABASE_ANON_KEY
+      - key: ML_API_URL
+
+  # ML Model Service
+  - type: web
+    name: fake-news-ml
+    runtime: python
+    plan: free
+    buildCommand: pip install -r ml_model/requirements.txt
+    startCommand: cd ml_model && gunicorn -b 0.0.0.0:5000 --timeout 300 app:app
+    envVars: []
